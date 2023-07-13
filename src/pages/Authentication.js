@@ -5,7 +5,11 @@ import 'firebase/compat/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import { signInWithPopup } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+
+
+
 
 firebase.initializeApp({
     apiKey: process.env.REACT_APP_API_KEY,
@@ -44,6 +48,13 @@ function Login(props) {
         } catch (err) {
             console.error(err)
         }
+
+        window.location.reload()
+    }
+
+    const handleGoogleLogin = () => {
+        const provider = new firebase.auth.GoogleAuthProvider()
+        auth.signInWithPopup(provider)
     }
 
     const { onSignUp } = props
@@ -59,7 +70,7 @@ function Login(props) {
                     <button type={'submit'} >Login</button>
                 </form>
                 <h2>Or:</h2>
-                <button className='google-login'>Login with Google</button>
+                <button className='google-login' onClick={handleGoogleLogin}>Login with Google</button>
                 <button className='register-link' onClick={onSignUp}>Don't have an account? Register</button>
             </div>
         </>
@@ -83,6 +94,8 @@ function Register(props) {
         } catch (err) {
             console.error(err)
         }
+
+        window.location.reload()
     }
 
     return (

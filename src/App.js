@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Authentication from './pages/Authentication';
 import Main from './pages/Main';
+import SideBar from './pages/SideBar';
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -22,11 +23,24 @@ firebase.initializeApp({
 const auth = firebase.auth();
 
 function App() {
- const [ user ] = useAuthState(auth)
+  const [ user ] = useAuthState(auth)
 
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut()
+    } catch(err) {
+      console.error(err)
+    }
+
+  }
   return (
     <div className="App">
-      {user ? <Main /> : < Authentication />}
+      <div className='App-header'>
+        {user ? <SideBar user={user} onSignOut={handleSignOut}/> : null}
+      </div>
+      <div className='main-content'>
+        {user ? <Main /> : < Authentication />}
+      </div>
     </div>
   );
 }
