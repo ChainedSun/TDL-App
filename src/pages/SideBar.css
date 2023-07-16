@@ -27,6 +27,16 @@
 .signout-btn {
     height: fit-content;
     width: fit-content;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding-inline: 8px;
+    padding-block: 2px;
+    transition: background-color 200ms ease-in-out;
+}
+
+.signout-btn:hover {
+    background-color: greenyellow;
 }
 
 .user-name {

@@ -1,3 +1,10 @@
+
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
 .task-container {
     height: 70vh;
     width: 50%;
@@ -52,6 +59,14 @@
     border: 1px solid black;
 }
 
+.entry-container:hover {
+    background-color: rgb(125, 125, 125);
+}
+
+.entry-container.task-completed {
+    background-color: rgba(0, 60, 0, 0.593);
+}
+
 .new-task-container {
     width: 100%;
     padding-inline: 8px;
@@ -98,3 +113,47 @@ form {
     background-color: greenyellow;
     color: black;
 }
+
+/* Task Entry */
+
+.inactive-complete-btn {
+    height: 24px;
+    width: 24px;
+    border-radius: 100%;
+    border: 1px solid black;
+    background-color: green;
+}
+
+.complete-btn {
+    height: 24px;
+    width: 24px;
+    border-radius: 100%;
+    border: 1px solid black;
+    transition: background-color 200ms ease-in-out;
+}
+
+.complete-btn:hover {
+    background-color: greenyellow;
+}
+
+.task-name {
+    width: 100%;
+}
+
+
+.remove-btn {
+    border: 1px solid black;
+    border-radius: 100%;
+    color: white;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+.remove-btn:hover {
+    color: black;
+    background-color: red;
+}
+
+
+
+  
+

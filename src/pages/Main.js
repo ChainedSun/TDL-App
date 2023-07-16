@@ -10,24 +10,23 @@ const firestore = firebase.firestore()
 
 function Main() {
     const taskCollection = firestore.collection('tasks')
-    const taskRef = taskCollection.orderBy('timeCreated')
 
     const [tasks, setTasks] = useState([]);
     const [newTaskName, setNewTaskName] = useState('');
     
 
     useEffect(() => {
-        taskRef.get()
-        .then((querySnapshot) => {
-            const newTasks = []
-            querySnapshot.forEach((doc) => {
-                newTasks.push( {id: doc.id, ...doc.data()} )
-            })
-            setTasks(newTasks)
-        })
-        .catch((err) => {
-            console.error(err)
-        })
+        // taskRef.get()
+        // .then((querySnapshot) => {
+        //     const newTasks = []
+        //     querySnapshot.forEach((doc) => {
+        //         newTasks.push( {id: doc.id, ...doc.data()} )
+        //     })
+        //     setTasks(newTasks)
+        // })
+        // .catch((err) => {
+        //     console.error(err)
+        // })
         const unsubscribe = taskCollection.orderBy('timeCreated').onSnapshot((snapshot) => {
             const updatedTasks = snapshot.docs.map((doc) => ({
                 id: doc.id,
@@ -60,12 +59,8 @@ function Main() {
 
     const updateTask = async (taskValue) => {
         const taskDoc = firestore.collection('tasks').doc(taskValue.id)
-
         await taskDoc.update({
             ...taskValue  
-        })
-        .then(() => {
-          console.log('Task updated successfully');
         })
         .catch((error) => {
           console.error('Error updating task:', error);
@@ -110,6 +105,11 @@ function Task(props) {
     const [timestamp, setTimestamp] = useState(timeCreated);
     const [completed, setCompleted] = useState(finished);
 
+    useEffect(() => {
+        handleUpdate()
+    }, [taskName, taskDescription, completed])
+    
+    
     const handleRemove = () => {
         onRemove(id)
     }
@@ -123,10 +123,15 @@ function Task(props) {
         })
     }
 
+    const handleComplete = () => {
+        setCompleted(!completed)
+    }
+
     return (
         <>
-            <div className='entry-container'>
-                <button className='complete-btn'></button>
+            <div className={`entry-container ${completed ? 'task-completed' : ''}`}>
+                {completed && (<div className='inactive-complete-btn'/>)}
+                {!completed && (<button className='complete-btn' onClick={handleComplete}></button>)}
                 <p className='task-name'>{name}</p>
                 <button className='remove-btn' onClick={handleRemove}>X</button>
             </div>

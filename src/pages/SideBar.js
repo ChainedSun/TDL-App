@@ -7,7 +7,7 @@ function SideBar(args) {
         <div className="sidebar">
             <div className='login-info'>
                 <p className='user-name'>Welcome, {user?.displayName}</p>
-                <img className="profile-picture" src={`${user?.photoURL}`}></img>
+                <img className="profile-picture" alt='profile' src={`${user?.photoURL}`}></img>
                 <button className='signout-btn' onClick={onSignOut}>Sign Out</button>
             </div>
         </div>
