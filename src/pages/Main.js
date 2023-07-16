@@ -28,7 +28,7 @@ function Main() {
         .catch((err) => {
             console.error(err)
         })
-        const unsubscribe = taskCollection.onSnapshot((snapshot) => {
+        const unsubscribe = taskCollection.orderBy('timeCreated').onSnapshot((snapshot) => {
             const updatedTasks = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data()
@@ -93,8 +93,8 @@ function Main() {
                 </div>
                 <div className='new-task-container'>
                     <form onSubmit={createTask}>
-                            <input type='text' value={newTaskName} onChange={(e) => setNewTaskName(e.target.value)} placeholder='Task Name...'></input>
-                            <button type='submit'>add new task...</button>
+                            <input className='input-text new-task-input' type='text' value={newTaskName} onChange={(e) => setNewTaskName(e.target.value)} placeholder='Task Name...'></input>
+                            <button className='submit-btn' type='submit'>+</button>
                     </form>
                 </div>
             </div>

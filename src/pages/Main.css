@@ -1,5 +1,6 @@
 .task-container {
     height: 70vh;
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,15 +9,35 @@
 
 .task-list {
     height: 100%;
-    border: 1px solid black;
+    border-bottom: 4px solid black;
     width: 100%;
-    border-radius: 20px;
     margin: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
     padding: 8px;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(54, 131, 161);
+    border: 1px solid black;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(120, 198, 228);
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgb(55, 55, 57);
+    border: 1px solid black;
+    border-radius: 100px;
 }
 
 .entry-container {
@@ -27,5 +48,53 @@
     justify-content: space-between;
     padding: 4px;
     border-radius: 10px;
+    color: white;
     border: 1px solid black;
+}
+
+.new-task-container {
+    width: 100%;
+    padding-inline: 8px;
+}
+
+form {
+    gap: 8px;
+    display: flex;
+    width: 100%;
+}
+
+.new-task-input {
+    font-size: large;
+    width: 100%;
+    border-radius: 50px;
+    color: white;
+    padding-block: 4px;
+    padding-inline: 8px;
+    outline: none;
+    background-color: transparent;
+    border: 1px solid white;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+.new-task-input:focus-visible {
+    border-color: greenyellow;
+    background-color: white;
+    color: black;
+}
+
+.submit-btn {
+    background-color: transparent;
+    outline: none;
+    border: 1px solid white;
+    color: white;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    font-size: large;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+.submit-btn:hover {
+    background-color: greenyellow;
+    color: black;
 }
