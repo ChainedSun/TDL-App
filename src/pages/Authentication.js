@@ -7,6 +7,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { signInWithPopup } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import './Authentication.css';
 
 
 
@@ -24,7 +25,7 @@ const auth = firebase.auth()
 
 function Authentication() {
 
-    const [authMode, setAuthMode] = useState(false);
+    const [authMode, setAuthMode] = useState(true);
 
     const handleToggleAuth = () => {
         setAuthMode(!authMode)
@@ -62,12 +63,12 @@ function Login(props) {
         <>
             <div className='login-container'>
                 <h1>Login</h1>
-                <form onSubmit={handleLoginWithEmailAndPassword}>
+                <form className='login-form-e-p' onSubmit={handleLoginWithEmailAndPassword}>
                     <p>Email:</p>
-                    <input type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email...' required></input>
+                    <input className='input-email' type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email...' required></input>
                     <p>Password:</p>
-                    <input type={'password'} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password...' required></input>
-                    <button type={'submit'} >Login</button>
+                    <input className='input-pwd' type={'password'} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password...' required></input>
+                    <button className='login-btn' type={'submit'} >Login</button>
                 </form>
                 <h2>Or:</h2>
                 <button className='google-login' onClick={handleGoogleLogin}>Login with Google</button>

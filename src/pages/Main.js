@@ -2,7 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import './Main.css';
 
@@ -16,17 +16,6 @@ function Main() {
     
 
     useEffect(() => {
-        // taskRef.get()
-        // .then((querySnapshot) => {
-        //     const newTasks = []
-        //     querySnapshot.forEach((doc) => {
-        //         newTasks.push( {id: doc.id, ...doc.data()} )
-        //     })
-        //     setTasks(newTasks)
-        // })
-        // .catch((err) => {
-        //     console.error(err)
-        // })
         const unsubscribe = taskCollection.orderBy('timeCreated').onSnapshot((snapshot) => {
             const updatedTasks = snapshot.docs.map((doc) => ({
                 id: doc.id,
@@ -88,7 +77,14 @@ function Main() {
                 </div>
                 <div className='new-task-container'>
                     <form onSubmit={createTask}>
-                            <input className='input-text new-task-input' type='text' value={newTaskName} onChange={(e) => setNewTaskName(e.target.value)} placeholder='Task Name...'></input>
+                            <input
+                            autoFocus
+                            className='input-text new-task-input'
+                            type='text'
+                            value={newTaskName}
+                            onChange={(e) => setNewTaskName(e.target.value)}
+                            placeholder='Task Name...'
+                            ></input>
                             <button className='submit-btn' type='submit'>+</button>
                     </form>
                 </div>
@@ -104,10 +100,12 @@ function Task(props) {
     const [taskDescription, setTaskDescription] = useState(description);
     const [timestamp, setTimestamp] = useState(timeCreated);
     const [completed, setCompleted] = useState(finished);
+    const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
         handleUpdate()
-    }, [taskName, taskDescription, completed])
+    }, [taskDescription, completed])
+    
     
     
     const handleRemove = () => {
@@ -127,12 +125,38 @@ function Task(props) {
         setCompleted(!completed)
     }
 
+    const handleEditMode = (event) => {
+        console.log(event.key)
+        if(event.key === 'Enter' && !(event.shiftKey)) {
+            handleUpdate()
+            setEditMode(!editMode)
+        } else if(event.key === 'Escape') {
+            setTaskName(name)
+            setEditMode(!editMode)
+        }
+    }
+
+    const handleBlur = () => {
+        setEditMode(!editMode)
+        setTaskName(name)
+    }
+
     return (
         <>
             <div className={`entry-container ${completed ? 'task-completed' : ''}`}>
                 {completed && (<div className='inactive-complete-btn'/>)}
                 {!completed && (<button className='complete-btn' onClick={handleComplete}></button>)}
-                <p className='task-name'>{name}</p>
+                {!editMode ? <p className={`task-name`} onDoubleClick={() => setEditMode(!editMode)}>{taskName}</p> : 
+                <input
+                    autoFocus
+                    className={`name-edit`} 
+                    type='text' 
+                    value={taskName} 
+                    onChange={(e) => setTaskName(e.target.value)}
+                    onKeyDown={handleEditMode}
+                    onBlur={handleBlur}
+                    onFocus={(e) => e.target.select()}
+                ></input>}
                 <button className='remove-btn' onClick={handleRemove}>X</button>
             </div>
         </>

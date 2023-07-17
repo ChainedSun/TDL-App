@@ -140,6 +140,10 @@ form {
     width: 100%;
 }
 
+.name-edit {
+    text-align: center;
+    
+}
 
 .remove-btn {
     border: 1px solid black;
@@ -153,7 +157,9 @@ form {
     background-color: red;
 }
 
-
+.hidden {
+    display: none !important;
+}
 
   
 

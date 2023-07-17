@@ -41,4 +41,17 @@
 
 .user-name {
     width: auto;
+    border: 1px solid white;
+    border-radius: 100px;
+    padding-inline: 8px;
+    user-select: none;
+}
+
+.user-name:hover {
+    border-color: greenyellow;
+    color: greenyellow;
+}
+
+.edit-username {
+    text-align: center;
 }

@@ -21,6 +21,7 @@ firebase.initializeApp({
 })
 
 const auth = firebase.auth();
+const firestore = firebase.firestore();
 
 function App() {
   const [ user ] = useAuthState(auth)
@@ -33,10 +34,16 @@ function App() {
     }
 
   }
+
+  const handleUpdateUserInfo = async (userInfo) => {
+    await auth.currentUser.updateProfile(userInfo)
+    .catch((err) => console.error(err))
+  }
+
   return (
     <div className="App">
       <div className='App-header'>
-        {user ? <SideBar user={user} onSignOut={handleSignOut}/> : null}
+        {user ? <SideBar user={user} onUpdateUserInfo={handleUpdateUserInfo} onSignOut={handleSignOut}/> : null}
       </div>
       <div className='main-content'>
         {user ? <Main /> : < Authentication />}
