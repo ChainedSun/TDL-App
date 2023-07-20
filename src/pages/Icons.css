@@ -1,0 +1,11 @@
+:root {
+    --universal-color: white;
+    --universal-hover-color: rgb(255, 255, 0);
+    --universal-active-color: greenyellow;
+}
+
+.icon-settings {
+    color: var(--universal-color);
+    width: 100%;
+    height: 100%;
+}

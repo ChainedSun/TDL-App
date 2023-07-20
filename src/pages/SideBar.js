@@ -1,20 +1,17 @@
 
 import React, { useEffect, useRef, useState } from 'react';
+import { SettingsCog } from './Icons';
 import './SideBar.css';
 const defaultPhotoURL = 'https://firebasestorage.googleapis.com/v0/b/to-do-list-815da.appspot.com/o/profile%2Fblank_avatar.jpg?alt=media&token=d924949d-2a75-429a-a07d-8d3fd0e5f719'
 
 
 function SideBar(args) {
-    const {user, onSignOut, onUpdateUserInfo} = args
+    const {user, onSignOut, onUpdateUserInfo, settings} = args
     const [userName, setUserName] = useState(user.displayName);
     const [usernameEditMode, setUsernameEditMode] = useState(false);
-    // const usernameRef = useRef(null)
-
-    // useEffect(() => {
-    //     if (usernameRef.current) {
-    //         usernameRef.current.focus()
-    //     }
-    // }, [usernameRef])
+    const [options, setOptions] = useState(settings);
+    const [optionsMode, setOptionsMode] = useState(false);
+    
 
     const handleEditName = async (event) => {
         if(event.key === "Enter" && !event.shiftKey) {
@@ -41,6 +38,10 @@ function SideBar(args) {
         setUsernameEditMode(!usernameEditMode)
     }
 
+    const handleOptionsToggle = () => {
+        setOptionsMode(!optionsMode)
+    }
+
     return ( 
         <div className="sidebar">
             <div className='login-info'>
@@ -51,7 +52,6 @@ function SideBar(args) {
                 >Welcome, {userName ? userName : '(change name)'}</p>)
                 :
                 (<input
-                    // ref={usernameRef}
                     autoFocus
                     className={`edit-username`}
                     type='text'
@@ -67,7 +67,13 @@ function SideBar(args) {
                     src={`${user?.photoURL ? user.photoURL : defaultPhotoURL}`}
                 ></img>
                 <button className='signout-btn' onClick={onSignOut}>Sign Out</button>
+                <button className='options-btn' onClick={handleOptionsToggle}><SettingsCog /></button>
             </div>
+            {optionsMode &&(
+                <div className='options-window'>
+                    
+                </div>
+            )}
         </div>
 
     );

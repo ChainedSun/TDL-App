@@ -10,5 +10,9 @@
 - added some basic styling for username and tasks
 - added some auto-focus on input fields
 ------------------------------------------------------------------------------------------------------
+## 20/07/2023
+- added variables to the "Root.css" file in preparation for user settings
+- added user settings checks on login and registration
+------------------------------------------------------------------------------------------------------
 
 

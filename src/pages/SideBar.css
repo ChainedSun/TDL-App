@@ -45,6 +45,28 @@
     border-radius: 100px;
     padding-inline: 8px;
     user-select: none;
+    transition: border-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+.options-window {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background-color: rgba(255, 0, 0, 0.475);
+}
+
+.options-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+}
+
+.options-btn:hover > .icon-settings {
+    color: var(--universal-hover-color);
+}
+
+.options-btn:active > .icon-settings {
+    color: var(--universal-active-color);
 }
 
 .user-name:hover {

@@ -1,27 +1,37 @@
 * {
-  margin: 0;
-  box-sizing: border-box;
+    margin: 0;
+    box-sizing: border-box;
 }
 
+
 body {
-  overflow: hidden;
+    overflow: hidden;
+}
+
+input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    width: fit-content;
 }
 
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-header, .main-content {
-  background-color: #282c34;
+    background-color: rgb(40, 44, 52);
 }
 
 .App-header{
-  color: white;
-  gap: 8px;
+    color: white;
+    gap: 8px;
 }
 
 .main-content {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
 }
