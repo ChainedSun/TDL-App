@@ -2,13 +2,21 @@
     --font-normal-color: white;
 }
 
-.login-container {
+input:autofill {
+    background: none;
+}
+
+/* LOGIN */
+
+.login-container,
+.register-container {
     display: flex;
     flex-direction: column;
     color: var(--font-normal-color);
 }
 
-.login-form-e-p {
+.login-form-e-p,
+.register-form {
     display: flex;
     flex-direction: column;
 }
@@ -22,6 +30,37 @@
     color: var(--font-normal-color);
 }
 
+/* REGISTER */
+
+.form-input {
+    background-color: transparent;
+    color: var(--font-normal-color);
+    border: none;
+    border-bottom: 1px solid white;
+    transition: border-color 200ms ease-in-out;
+}
+
+.form-input:focus-visible {
+    border-color: yellow;
+    background-color: transparent;
+}
+
 .register-link {
     color: var(--font-normal-color);
 }
+
+.form-btn {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 100px;
+    color: var(--font-normal-color);
+    transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out, color 200ms ease-in-out;
+
+}
+
+.form-btn:hover {
+    background-color: greenyellow;
+    border: 1px solid yellow;
+    color: black;
+}
+

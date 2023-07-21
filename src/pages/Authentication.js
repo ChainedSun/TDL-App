@@ -171,18 +171,18 @@ function Login(props) {
     }
     return (
         <>
-            <div className='login_container'>
+            <div className='login-container'>
                 <h1>Login</h1>
-                <form className='login_form_e_p' onSubmit={handleLoginWithEmailAndPassword}>
+                <form className='login-form-e-p' onSubmit={handleLoginWithEmailAndPassword}>
                     <p>Email:</p>
-                    <input className='input_email' type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email...' required></input>
+                    <input className='form-input' type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email...' required></input>
                     <p>Password:</p>
-                    <input className='input_pwd' type={'password'} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password...' required></input>
-                    <button className='login_btn' type={'submit'} >Login</button>
+                    <input className='form-input' type={'password'} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password...' required></input>
+                    <button className='form-btn' type={'submit'} >Login</button>
                 </form>
                 <h2>Or:</h2>
-                <button className='google_login' onClick={handleGoogleLogin}>Login with Google</button>
-                <button className='register_link' onClick={onSignUp}>Don't have an account? Register</button>
+                <button className='google-login' onClick={handleGoogleLogin}>Login with Google</button>
+                <button className='register-link' onClick={onSignUp}>Don't have an account? Register</button>
             </div>
         </>
     )
@@ -211,18 +211,18 @@ function Register(props) {
 
     return (
         <>
-            <div className='login_container'>
+            <div className='register-container'>
                 <h1>Register</h1>
-                <form onSubmit={handleRegister}>
+                <form onSubmit={handleRegister} className='register-form'>
                     <p>Username:</p>
-                    <input type={'text'} value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Your Name...' required></input>
+                    <input className='form-input' type={'text'} value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Your Name...' required></input>
                     <p>Email:</p>
-                    <input type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email...' required></input>
+                    <input className='form-input' type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email...' required></input>
                     <p>Password:</p>
-                    <input type={'password'} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password...' required></input>
-                    <button type={'submit'} >Register</button>
+                    <input className='form-input' type={'password'} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password...' required></input>
+                    <button className='form-btn' type={'submit'} >Register</button>
                 </form>
-                <button className='register_link' onClick={onLogin}>Already have an account? Log in</button>
+                <button className='register-link' onClick={onLogin}>Already have an account? Log in</button>
             </div>
         </>
     )
