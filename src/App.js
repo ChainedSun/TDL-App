@@ -9,8 +9,10 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import './Root.css';
 import Authentication from './pages/Authentication';
+import { SettingsCog } from './pages/Icons';
 import Main from './pages/Main';
-import SideBar from './pages/SideBar';
+import Sidebar from './pages/Sidebar';
+import TopBar from './pages/TopBar';
 
 firebase.initializeApp({
     apiKey: process.env.REACT_APP_API_KEY,
@@ -26,35 +28,35 @@ const firestore = firebase.firestore();
 
 function App() {
     const [ user ] = useAuthState(auth)
-    const [userSettings, setUserSettings] = useState({});
+    const [sidebarToggle, setSidebarToggle] = useState(false);
 
-    useEffect(() => {
-        let unsubscribeUserSettings;
+    // useEffect(() => {
+    //     let unsubscribeUserSettings;
     
-        const getUserSettings = async () => {
-            const userSettingsCol = firestore.collection('settings');
-            const querySnapshot = await userSettingsCol.where('user', '==', auth.currentUser.uid).get();
-            if (!querySnapshot.empty) {
-                const userSettingsData = querySnapshot.docs[0].data();
-                setUserSettings(userSettingsData);
-                // Subscribe to the user settings document
-                unsubscribeUserSettings = userSettingsCol.doc(querySnapshot.docs[0].id).onSnapshot((docSnapshot) => {
-                    setUserSettings(docSnapshot.data());
-                });
-            }
-        };
+    //     const getUserSettings = async () => {
+    //         const userSettingsCol = firestore.collection('settings');
+    //         const querySnapshot = await userSettingsCol.where('user', '==', auth.currentUser.uid).get();
+    //         if (!querySnapshot.empty) {
+    //             const userSettingsData = querySnapshot.docs[0].data();
+    //             setUserSettings(userSettingsData);
+    //             // Subscribe to the user settings document
+    //             unsubscribeUserSettings = userSettingsCol.doc(querySnapshot.docs[0].id).onSnapshot((docSnapshot) => {
+    //                 setUserSettings(docSnapshot.data());
+    //             });
+    //         }
+    //     };
     
-        if (user) {
-            getUserSettings();
-        }
+    //     if (user) {
+    //         getUserSettings();
+    //     }
     
-        // Clean up the subscription when the component unmounts or when the user changes
-        return () => {
-            if (unsubscribeUserSettings) {
-                unsubscribeUserSettings();
-            }
-        };
-    }, [user]);
+    //     // Clean up the subscription when the component unmounts or when the user changes
+    //     return () => {
+    //         if (unsubscribeUserSettings) {
+    //             unsubscribeUserSettings();
+    //         }
+    //     };
+    // }, [user]);
     
 
 
@@ -72,15 +74,23 @@ function App() {
         .catch((err) => console.error(err))
     }
 
-    console.log("User Settings: ",userSettings)
+    const handleSettingsToggle = () => {
+        setSidebarToggle(!sidebarToggle)
+    }
+
 
   return (
     <div className="App">
         <div className='App-header'>
-            {user ? <SideBar user={user} onUpdateUserInfo={handleUpdateUserInfo} onSignOut={handleSignOut} userSettings={userSettings}/> : null}
+            {user ? <TopBar user={user} onUpdateUserInfo={handleUpdateUserInfo} onSignOut={handleSignOut} onToggleSettings={handleSettingsToggle}/> : null}
         </div>
-        <div className='main-content'>
-            {user ? <Main /> : < Authentication />}
+        <div className='main-container'>
+            {user ? 
+            <>
+                {sidebarToggle? <Sidebar /> : <Main />}
+            </>
+            : 
+            < Authentication />}
         </div>
     </div>
   );

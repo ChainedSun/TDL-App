@@ -21,17 +21,33 @@ input {
     text-align: center;
 }
 
-.App-header, .main-content {
-    background-color: rgb(40, 44, 52);
-}
 
 .App-header{
     color: white;
     gap: 8px;
 }
 
-.main-content {
+.main-container {
+    background-color: rgb(40, 44, 52);
     min-height: 100vh;
     display: flex;
     justify-content: center;
+}
+
+.sidebar-container {
+    
+}
+
+.sidebar-toggle {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+}
+
+.sidebar-toggle:hover > .icon-settings {
+    color: var(--universal-hover-color);
+}
+
+.sidebar-toggle:active > .icon-settings {
+    color: var(--universal-active-color);
 }

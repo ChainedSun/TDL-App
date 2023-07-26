@@ -14,5 +14,8 @@
 - added variables to the "Root.css" file in preparation for user settings
 - added user settings checks on login and registration
 ------------------------------------------------------------------------------------------------------
+## 27/07/2023
+- added the framework for user settings. This includes: auto-generated fields with setting name and color card, the ability to swtch between edit mode and normal.
+------------------------------------------------------------------------------------------------------
 
 

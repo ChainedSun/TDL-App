@@ -1,0 +1,66 @@
+.backdrop {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.337);
+    display: flex;
+    justify-content: center;
+}
+
+.options-window {
+    background-color: rgba(255, 255, 255, 0.162);
+    width: 75%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    overflow-y: scroll;
+    gap: 8px;
+    padding: 4px;
+    color: white;
+}
+
+.settings-component {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid white;
+    padding: 2px;
+    gap: 16px;
+}
+
+.settings-color {
+    width: auto;
+    user-select: none;
+}
+
+.settings-color-card {
+    width: 32px;
+    height: 32px;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+/* 
+.list-btn {
+    background-color: var(--btn-bg-color);
+    color: var(--btn-text-color);
+    border : var(--btn-border-width) solid var(--btn-border-color);
+    border-radius: var(--btn-border-radius);
+    padding: var(--btn-padding);
+}
+
+.list-btn:hover {
+    background-color: var(--btn-bg-color-hover);
+    color: var(--btn-text-color-hover);
+    border : 1px solid var(--btn-border-color-hover);
+}
+
+.list-btn:active {
+    background-color: var(--btn-bg-color-active);
+    color: var(--btn-text-color-active);
+    border : 1px solid var(--btn-border-color-active);
+}
+
+.list-btn.active {
+    background-color: var(--btn-toggle-bg-color);
+} */
