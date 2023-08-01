@@ -58,4 +58,12 @@
     --input-border-color-focus: rgb(0, 0, 0);
 
 }
+
+::-webkit-scrollbar {
+    background-color: var(--scrollbar-track-bg-color);
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track-bg-color);
+}
   
