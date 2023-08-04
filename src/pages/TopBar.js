@@ -1,13 +1,11 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { SettingsCog } from './Icons';
-import Settings from './Settings';
 import './TopBar.css';
 const defaultPhotoURL = 'https://firebasestorage.googleapis.com/v0/b/to-do-list-815da.appspot.com/o/profile%2Fblank_avatar.jpg?alt=media&token=d924949d-2a75-429a-a07d-8d3fd0e5f719'
 
 
 function TopBar(args) {
-    const {user, onSignOut, onUpdateUserInfo, onToggleSettings} = args
+    const {user, onSignOut, onUpdateUserInfo} = args
     const [userName, setUserName] = useState(user.displayName);
     const [usernameEditMode, setUsernameEditMode] = useState(false);
     const [optionsMode, setOptionsMode] = useState(false);
@@ -38,9 +36,7 @@ function TopBar(args) {
         setUsernameEditMode(!usernameEditMode)
     }
 
-    const handleOptionsToggle = () => {
-        setOptionsMode(!optionsMode)
-    }
+    
 
     return ( 
         <div className="top-bar">
@@ -67,7 +63,6 @@ function TopBar(args) {
                     src={`${user?.photoURL ? user.photoURL : defaultPhotoURL}`}
                 ></img>
                 <button className='signout-btn' onClick={onSignOut}>Sign Out</button>
-                <button onClick={() => onToggleSettings()} className='sidebar-toggle'><SettingsCog /></button>
             </div>
         </div>
 

@@ -24,58 +24,7 @@ firebase.initializeApp({
 const auth = firebase.auth()
 const firestore = firebase.firestore()
 
-const defaultSettings = {
-    showFinishedTasks: true,
-    showAdvancedInfo: false,
-    
-    input_background_color: 'transparent',
-    input_background_color_hover: 'transparent',
-    input_background_color_focus: '#ffffff',
-    input_text_color: '#ffffff',
-    input_text_color_hover: '#ffffff',
-    input_text_color_focus: '#ffffff',
-    input_border_color: '#000000',
-    input_border_color_hover: '#000000',
-    input_border_color_focus: '#000000',
 
-    btn_bg_color: '#ffffff',
-    btn_bg_color_hover: '#adff2f',
-    btn_bg_color_active: '#008000',
-    btn_bg_color_disabled: 'transparent',
-    btn_text_color: '#000000',
-    btn_text_color_hover: '#000000',
-    btn_text_color_active: '#000000',
-    btn_text_color_disabled: '#ffffff',
-    btn_border_color: '#000000',
-    btn_border_color_hover: '#000000',
-    btn_border_color_active: '#000000',
-    btn_border_color_disabled: '#000000',
-    btn_border_radius: '100px',
-    btn_border_width: '1px',
-
-    scrollbar_bg_color: 'transparent',
-    scrollbar_thumb_color: '#3683a1',
-    scrollbar_thumb_color_hover: '#78c6e4',
-    scrollbar_thumb_color_active: '#78c6a1',
-    scrollbar_thumb_border_color: '#000000',
-    scrollbar_thumb_border_color_hover: '#000000',
-    scrollbar_thumb_border_color_active: '#000000',
-    scrollbar_track_bg_color: '#373737',
-    scrollbar_track_bg_color_hover: '#373737',
-    scrollbar_track_bg_color_active: '#373737',
-    scrollbar_track_border_color: '#000000',
-    scrollbar_track_border_color_hover: '#000000',
-    scrollbar_track_border_color_active: '#000000',
-
-    entry_container_bg_color: '#494949',
-    entry_container_bg_color_hover: '#7d7d7d',
-    entry_container_bg_color_complete: '#003c00',
-    entry_container_border_color: '#000000',
-    entry_container_border_color_hover: '#000000',
-    entry_container_text_color: '#ffffff',
-    entry_container_text_color_hover: '#ffffff',
-    entry_container_text_color_complete: '#ffffff'
-};
   
 
 function Authentication() {
@@ -85,71 +34,15 @@ function Authentication() {
         setAuthMode(!authMode)
     }
         
-    const handleSetSettings = async () => {
-        const settingsCol = firestore.collection('settings');
-        const querySnapshot = await settingsCol.where('user', '==', auth.currentUser.uid).get();
-    
-        if (querySnapshot.empty) {
-            // Add new settings document and create userSettings object with default values
-            const newSettingsDocRef = await settingsCol.add({
-                user: auth.currentUser.uid,
-                ...defaultSettings
-            });
-            console.log('Settings added for user with UID:', auth.currentUser.uid);
-    
-            const userSettings = {
-                ref: newSettingsDocRef,
-                data: {
-                    user: auth.currentUser.uid,
-                    ...defaultSettings
-                }
-            };
-            console.log('User Settings:', userSettings);
-        } else {
-            // Extract the first document from the query snapshot
-            const settingsDoc = querySnapshot.docs[0];
-            const userSettingsData = settingsDoc.data();
-    
-            // Check if userSettingsData contains all the keys from defaultSettings
-            const hasAllKeys = Object.keys(defaultSettings).every((key) => key in userSettingsData);
-    
-            if (hasAllKeys) {
-                console.log('Settings:', userSettingsData);
-    
-                const userSettings = {
-                    ref: settingsDoc.ref,
-                    data: userSettingsData
-                };
-                console.log('User Settings:', userSettings);
-            } else {
-                // Update the document with default values for the missing keys
-                const updatedData = { ...userSettingsData };
-                Object.keys(defaultSettings).forEach((key) => {
-                    if (!(key in updatedData)) {
-                        updatedData[key] = defaultSettings[key];
-                    }
-                });
-    
-                // Update the document with the updatedData
-                await settingsDoc.ref.update(updatedData);
-                console.log('Updated settings with default values:', updatedData);
-    
-                const userSettings = {
-                    ref: settingsDoc.ref,
-                    data: updatedData
-                };
-                console.log('User Settings:', userSettings);
-            }
-        }
-    };
+   
     
 
       
 
     return ( 
-    <>
-        {authMode ? <Login onSignUp={handleToggleAuth} handleSettings={handleSetSettings}/> : <Register onLogin={handleToggleAuth} handleSettings={handleSetSettings}/>}
-    </> 
+    <div className='auth-container'>
+        {authMode ? <Login onSignUp={handleToggleAuth}/> : <Register onLogin={handleToggleAuth}/>}
+    </div> 
     );
 }
 
@@ -166,8 +59,7 @@ function Login(props) {
             console.error(err)
         }
 
-        //window.location.reload()
-        handleSettings()
+        window.location.reload()
     }
 
     const handleGoogleLogin = () => {
@@ -186,10 +78,10 @@ function Login(props) {
                     <p>Password:</p>
                     <input className='form-input' type={'password'} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password...' required></input>
                     <button className='form-btn' type={'submit'} >Login</button>
+                    <h2>Or:</h2>
+                    <button className='google-login' onClick={handleGoogleLogin}>Login with Google</button>
                 </form>
-                <h2>Or:</h2>
-                <button className='google-login' onClick={handleGoogleLogin}>Login with Google</button>
-                <button className='register-link' onClick={onSignUp}>Don't have an account? Register</button>
+                <p className='register-link' onClick={onSignUp}>Don't have an account? Register</p>
             </div>
         </>
     )
@@ -199,6 +91,7 @@ function Register(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [profilePhotoURL, setProfilePhotoURL] = useState('');
     
     const { onLogin } = props
 

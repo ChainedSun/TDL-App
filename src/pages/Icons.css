@@ -4,8 +4,11 @@
     --universal-active-color: greenyellow;
 }
 
-.icon-settings {
+.icon-settings,
+.colapse-btn,
+.expand-btn {
     color: var(--universal-color);
     width: 100%;
     height: 100%;
 }
+

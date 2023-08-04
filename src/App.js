@@ -9,9 +9,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import './Root.css';
 import Authentication from './pages/Authentication';
-import { SettingsCog } from './pages/Icons';
 import Main from './pages/Main';
-import Sidebar from './pages/Sidebar';
 import TopBar from './pages/TopBar';
 
 firebase.initializeApp({
@@ -30,36 +28,6 @@ function App() {
     const [ user ] = useAuthState(auth)
     const [sidebarToggle, setSidebarToggle] = useState(false);
 
-    // useEffect(() => {
-    //     let unsubscribeUserSettings;
-    
-    //     const getUserSettings = async () => {
-    //         const userSettingsCol = firestore.collection('settings');
-    //         const querySnapshot = await userSettingsCol.where('user', '==', auth.currentUser.uid).get();
-    //         if (!querySnapshot.empty) {
-    //             const userSettingsData = querySnapshot.docs[0].data();
-    //             setUserSettings(userSettingsData);
-    //             // Subscribe to the user settings document
-    //             unsubscribeUserSettings = userSettingsCol.doc(querySnapshot.docs[0].id).onSnapshot((docSnapshot) => {
-    //                 setUserSettings(docSnapshot.data());
-    //             });
-    //         }
-    //     };
-    
-    //     if (user) {
-    //         getUserSettings();
-    //     }
-    
-    //     // Clean up the subscription when the component unmounts or when the user changes
-    //     return () => {
-    //         if (unsubscribeUserSettings) {
-    //             unsubscribeUserSettings();
-    //         }
-    //     };
-    // }, [user]);
-    
-
-
     const handleSignOut = async () => {
     try {
         await auth.signOut()
@@ -74,23 +42,22 @@ function App() {
         .catch((err) => console.error(err))
     }
 
-    const handleSettingsToggle = () => {
-        setSidebarToggle(!sidebarToggle)
-    }
-
 
   return (
     <div className="App">
         <div className='App-header'>
-            {user ? <TopBar user={user} onUpdateUserInfo={handleUpdateUserInfo} onSignOut={handleSignOut} onToggleSettings={handleSettingsToggle}/> : null}
+            {user ? <TopBar user={user} onUpdateUserInfo={handleUpdateUserInfo} onSignOut={handleSignOut}/> : null}
         </div>
         <div className='main-container'>
             {user ? 
-            <>
-                {sidebarToggle? <Sidebar /> : <Main />}
-            </>
-            : 
-            < Authentication />}
+                <>
+                    <Main />
+                </>
+                : 
+                <>
+                    < Authentication />
+                </>
+            }
         </div>
     </div>
   );

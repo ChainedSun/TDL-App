@@ -17,5 +17,9 @@
 ## 27/07/2023
 - added the framework for user settings. This includes: auto-generated fields with setting name and color card, the ability to swtch between edit mode and normal.
 ------------------------------------------------------------------------------------------------------
-
+## 04/08/2023
+- removed the color settings completely from the project and opted instead for no personalization of colors for a small project.
+- removed the settings and sidebar elements as they're no longer needed.
+- added styling for the Authentication element, and for task entries
+------------------------------------------------------------------------------------------------------
 

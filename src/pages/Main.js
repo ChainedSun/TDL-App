@@ -4,6 +4,8 @@ import 'firebase/compat/firestore';
 
 import React, { useEffect, useRef, useState } from 'react';
 
+import { Colapse, Expand } from './Icons';
+
 import './Main.css';
 
 const firestore = firebase.firestore()
@@ -72,7 +74,7 @@ function Main() {
         <>
             <div className='task-container'>
                 <div className='task-list'>
-                    {tasks.length !== 0 && tasks.map(task => <Task key={task.id} task={task} advancedView={true} showFinished={true} onUpdate={updateTask} onRemove={removeTask}/>)}
+                    {tasks.length !== 0 && tasks.map(task => <Task key={task.id} task={task} showFinished={true} onUpdate={updateTask} onRemove={removeTask}/>)}
                     
                 </div>
                 <div className='new-task-container'>
@@ -95,16 +97,18 @@ function Main() {
 
 function Task(props) {
     const { name, id, finished, description, timeCreated} = props.task
-    const { advancedView, onUpdate, onRemove, showFinished } = props
+    const { onUpdate, onRemove, showFinished } = props
     const [taskName, setTaskName] = useState(name);
-    const [taskDescription, setTaskDescription] = useState(description);
+    const [showNote, setShowNote] = useState(false);
+    const [note, setNote] = useState(description);
     const [timestamp, setTimestamp] = useState(timeCreated);
     const [completed, setCompleted] = useState(finished);
-    const [editMode, setEditMode] = useState(false);
+    const [editName, setEditName] = useState(false);
+    const [editNote, setEditNote] = useState(false);
 
     useEffect(() => {
         handleUpdate()
-    }, [taskDescription, completed])
+    }, [taskName, note, completed])
     
     
     
@@ -116,7 +120,7 @@ function Task(props) {
         onUpdate({
             id: id,
             name: taskName,
-            description: taskDescription,
+            description: note,
             finished: completed
         })
     }
@@ -125,39 +129,87 @@ function Task(props) {
         setCompleted(!completed)
     }
 
-    const handleEditMode = (event) => {
-        console.log(event.key)
+    const handleEditName = (event) => {
         if(event.key === 'Enter' && !(event.shiftKey)) {
             handleUpdate()
-            setEditMode(!editMode)
+            setEditName(!editName)
         } else if(event.key === 'Escape') {
             setTaskName(name)
-            setEditMode(!editMode)
+            setEditName(!editName)
         }
     }
 
-    const handleBlur = () => {
-        setEditMode(!editMode)
+    const handleEditNote = (event) => {
+        if(event.key === 'Enter' && !(event.shiftKey)) {
+            handleUpdate()
+            setEditNote(!editNote)
+        } else if(event.key === 'Escape') {
+            setEditNote(!editNote)
+            setNote(note)
+        }
+    }
+
+    const handleBlurName = () => {
+        setEditName(!editName)
         setTaskName(name)
+    }
+    
+    const handleBlurNote = () => {
+        setEditNote(!editNote)
+        setNote(note)
     }
 
     return (
         <>
             <div className={`entry-container ${completed ? 'task-completed' : ''}`}>
-                {completed && (<div className='inactive-complete-btn'/>)}
-                {!completed && (<button className='complete-btn' onClick={handleComplete}></button>)}
-                {!editMode ? <p className={`task-name`} onDoubleClick={() => setEditMode(!editMode)}>{taskName}</p> : 
-                <input
-                    autoFocus
-                    className={`name-edit`} 
-                    type='text' 
-                    value={taskName} 
-                    onChange={(e) => setTaskName(e.target.value)}
-                    onKeyDown={handleEditMode}
-                    onBlur={handleBlur}
-                    onFocus={(e) => e.target.select()}
-                ></input>}
-                <button className='remove-btn' onClick={handleRemove}>X</button>
+                
+                <div className='title-container'>
+                    {(completed ? <div className='inactive-complete-btn'/> : <button className='complete-btn' onClick={handleComplete}></button>)}
+                    {
+                        !editName 
+                        ? 
+                            <p className={`task-name`} onDoubleClick={
+                                () => finished ? null : setEditName(!editName)
+                            } style={(!taskName ? {'color': '#ffffff5f'} : {})}>{(taskName ? taskName : 'Task Name...')}</p> 
+                        : 
+                            <input
+                                autoFocus
+                                className={`name-edit`} 
+                                type='text'
+                                value={taskName} 
+                                onChange={(e) => setTaskName(e.target.value)}
+                                onKeyDown={handleEditName}
+                                onBlur={handleBlurName}
+                                onFocus={(e) => e.target.select()}
+                            ></input>
+                    }
+                    <button className='show-note-btn' onClick={() => setShowNote(!showNote)}>{(showNote ? <Colapse /> : <Expand />)}</button>
+                    <button className='remove-btn' onClick={handleRemove}>X</button>
+                    
+                </div>
+                <div className='note-container'>
+                    {
+                        !editNote
+                        ? 
+                            (showNote ? 
+                                <p className={`task-note`} onDoubleClick={
+                                    () => finished ? null : setEditNote(!editNote)
+                                }
+                                style={(!note ? {'color': '#ffffff5f'} : {})}>{(note ? note : 'Note...')}</p> : null)
+                        : 
+                            <input
+                                autoFocus
+                                className={`note-edit`} 
+                                type='text'
+                                value={note}  
+                                onChange={(e) => setNote(e.target.value)}
+                                onKeyDown={handleEditNote}
+                                onBlur={handleBlurNote}
+                                onFocus={(e) => e.target.select()}
+                            ></input>
+                    }
+                </div>
+                
             </div>
         </>
     )

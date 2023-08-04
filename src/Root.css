@@ -1,69 +1,57 @@
 :root {
-    --btn-bg-color: white;
-    --btn-bg-color-hover: greenyellow;
-    --btn-bg-color-active: green;
-    --btn-bg-color-disabled: transparent;
-    --btn-text-color: rgb(0, 0, 0);
-    --btn-text-color-hover: rgb(0, 0, 0);
-    --btn-text-color-active: rgb(0, 0, 0);
-    --btn-text-color-disabled: rgb(255,255,255);
-    --btn-border-color: rgb(0, 0, 0);
-    --btn-border-color-hover: rgb(0, 0, 0);
-    --btn-border-color-active: rgb(0, 0, 0);
-    --btn-border-color-disabled: rgb(0, 0, 0);
-    --btn-border-radius: 100px;
-    --btn-border-width: 1px;
-    --btn-padding: 4px;
-    --btn-font-size: 14px;
-    --btn-toggle-bg-color: gold;
-
-    --scrollbar-bg-color: transparent;
-    --scrollbar-thumb-color: rgb(54, 131, 161);
-    --scrollbar-thumb-color-hover: rgb(120, 198, 228);
-    --scrollbar-thumb-color-active: rgb(120, 198, 161);
-
-    --scrollbar-thumb-border-color: rgb(0, 0, 0);
-    --scrollbar-thumb-border-color-hover: rgb(0, 0, 0);
-    --scrollbar-thumb-border-color-active: rgb(0, 0, 0);
-
-    --scrollbar-track-bg-color: rgb(55, 55, 55);
-    --scrollbar-track-bg-color-hover: rgb(55, 55, 55);
-    --scrollbar-track-bg-color-active: rgb(55, 55, 55);
-
-    --scrollbar-track-border-color: rgb(0, 0, 0);
-    --scrollbar-track-border-color-hover: rgb(0, 0, 0);
-    --scrollbar-track-border-color-active: rgb(0, 0, 0);
-
-    --entry-container-bg-color: rgb(73, 73, 73);
-    --entry-container-bg-color-hover: rgb(125, 125, 125);
-    --entry-container-bg-color-complete: rgb(0, 60, 0);
-
-    --entry-container-border-color: rgb(0, 0, 0);
-    --entry-container-border-color-hover: rgb(0, 0, 0);
-
-    --entry-container-text-color: rgb(255, 255, 255);
-    --entry-container-text-color-hover: rgb(255, 255, 255);
-    --entry-container-text-color-complete: rgb(255, 255, 255);
-
-    --input-background-color: transparent;
-    --input-background-color-hover: transparent;
-    --input-background-color-focus: rgb(255, 255, 255);
-
-    --input-text-color: rgb(255, 255, 255);
-    --input-text-color-hover: rgb(255, 255, 255);
-    --input-text-color-focus: rgb(255, 255, 255);
-
-    --input-border-color: rgb(0, 0, 0);
-    --input-border-color-hover: rgb(0, 0, 0);
-    --input-border-color-focus: rgb(0, 0, 0);
-
+    font-size: 16px;
 }
 
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+}
+
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    width: fit-content;
+    font-size: 16px;
+}
+
+form {
+    gap: 8px;
+    display: flex;
+    width: 100%;
+}
+
+
 ::-webkit-scrollbar {
-    background-color: var(--scrollbar-track-bg-color);
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(54, 131, 161);
+    border: 1px solid black;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(120, 198, 228);
+    border: 1px solid black;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--scrollbar-track-bg-color);
+    background-color: rgb(55, 55, 57);
+    border: 1px solid black;
+    border-radius: 100px;
 }
   
