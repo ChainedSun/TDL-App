@@ -47,7 +47,7 @@ function Authentication() {
 }
 
 function Login(props) {
-    const { onSignUp, handleSettings} = props
+    const { onSignUp} = props
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -65,7 +65,6 @@ function Login(props) {
     const handleGoogleLogin = () => {
         const provider = new firebase.auth.GoogleAuthProvider()
         auth.signInWithPopup(provider)
-        .then(() => handleSettings())
         
     }
     return (
