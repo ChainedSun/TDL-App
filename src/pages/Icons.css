@@ -6,9 +6,11 @@
 
 .icon-settings,
 .colapse-btn,
-.expand-btn {
+.expand-btn,
+.icon-camera {
     color: var(--universal-color);
     width: 100%;
     height: 100%;
 }
+
 

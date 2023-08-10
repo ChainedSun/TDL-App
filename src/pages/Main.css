@@ -75,6 +75,10 @@
     color: black;
 }
 
+.new-task-input:focus-visible::placeholder {
+    color: black;
+}
+
 .submit-btn {
     background-color: transparent;
     outline: none;

@@ -1,6 +1,6 @@
 import './Icons.css';
 
-import { FiChevronDown, FiChevronLeft, FiSettings } from "react-icons/fi";
+import { FiCamera, FiChevronDown, FiChevronLeft, FiSettings } from "react-icons/fi";
 
 export const SettingsCog = () => {
     return (
@@ -22,6 +22,14 @@ export const Expand = () => {
     return (
         <>
             <FiChevronLeft className={'expand-btn'} />
+        </>
+    )
+}
+
+export const Camera = () => {
+    return (
+        <>
+            <FiCamera className='icon-camera' />
         </>
     )
 }

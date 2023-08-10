@@ -22,4 +22,8 @@
 - removed the settings and sidebar elements as they're no longer needed.
 - added styling for the Authentication element, and for task entries
 ------------------------------------------------------------------------------------------------------
+## 10/08/2023
+- finished the profile picture change via uploading a file to firebase and by external URL
+- added styling to the profile picture update window
+------------------------------------------------------------------------------------------------------
 
